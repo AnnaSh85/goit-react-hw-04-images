@@ -1,17 +1,17 @@
 import propTypes from 'prop-types';
 import { createPortal } from 'react-dom';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 import styles from './modal.module.css';
 
 const modalRoot = document.querySelector('#modal');
 
 const Modal = ({ close, modalData }) => {
-  const onModalClose = ({ target, currentTarget, code }) => {
+  const onModalClose = useCallback(({ target, currentTarget, code }) => {
     if (target === currentTarget || code === 'Escape') {
       close();
     }
-  };
+  }, []);
 
   useEffect(() => {
     document.addEventListener('keydown', onModalClose);

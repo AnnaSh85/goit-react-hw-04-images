@@ -1,8 +1,5 @@
 import axios from 'axios';
-import {
-  NotificationContainer,
-  NotificationManager,
-} from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 
 async function imagesApi({ search, page }) {

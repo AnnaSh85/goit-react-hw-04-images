@@ -22,11 +22,12 @@ const App = () => {
   const showButton = images.length > 0 && page < maxPage;
 
   useEffect(() => {
-    if (search === '') {
+    if (!search) {
       return;
     }
     const fetchImages = async () => {
       try {
+        setLoading(true);
         const response = await imagesApi({ search, page });
         const totalHits = response.data.totalHits;
         const images = response.data.hits;
@@ -40,13 +41,12 @@ const App = () => {
         setImages(prevState => [...prevState, ...images]);
         setTotalHits(totalHits);
       } catch (error) {
-        NotificationManager.info('Info message');
+        NotificationManager.error('Error');
       } finally {
         setLoading(false);
       }
     };
 
-    setLoading(true);
     fetchImages();
 
     return () => {};
@@ -64,7 +64,6 @@ const App = () => {
     setPage(1);
     setImages([]);
     setSearch(searchValue);
-
     form.reset();
   }
 
@@ -88,6 +87,7 @@ const App = () => {
       <div className={styles.app}>
         <ImageGallery images={images} onImageClick={openModal} />
       </div>
+      {/* {Loading ? <Loader /> : showButton && <Button onClick={changePage} />} */}
       {Loading && <Loader />}
       {showButton && <Button onClick={changePage} />}
       {isModalOpen && <Modal modalData={modalData} close={handleModalClose} />}
