@@ -90,7 +90,9 @@ const App = () => {
       {/* {Loading ? <Loader /> : showButton && <Button onClick={changePage} />} */}
       {Loading && <Loader />}
       {showButton && <Button onClick={changePage} />}
-      {isModalOpen && <Modal modalData={modalData} close={handleModalClose} />}
+      {isModalOpen && (
+        <Modal modalData={modalData} onModalClose={handleModalClose} />
+      )}
     </>
   );
 };
